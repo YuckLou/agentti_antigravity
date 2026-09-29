@@ -38,7 +38,8 @@ description: Ficha completa de uma empresa brasileira pelo Agentti (cadastro da 
 - **Como arquivo** (quando a pessoa pedir Word, PDF, "arquivo" ou "para imprimir"): `gerar_relatorio` com
   `tipo: "empresa"`, `cnpj`, `titulo` (o nome fantasia), `resumo` e `analise` com `rede`, `abordagem` e
   `riscos` (um por linha). Cadastro, sócios, contatos com prova, rede e endereço saem do servidor; não digite
-  esses dados. `projeto_id` guarda a ficha no projeto. Entregue os links (15 minutos). Não use a skill genérica
+  esses dados. `projeto_id` guarda a ficha no projeto (painel: **Projetos → Relatórios**; link vencido:
+  `listar_relatorios`). Entregue os links (15 minutos). Não use a skill genérica
   de PDF ou Word. Se `gerar_relatorio` não existir no conector, use o gerador da skill **marca-agentti**.
 
 ## Regras

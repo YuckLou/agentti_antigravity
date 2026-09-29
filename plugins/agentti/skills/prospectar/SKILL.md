@@ -55,6 +55,8 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
 9. **Acompanhe e entregue.** `acompanhar_fila`; quando terminar, `listar_leads` com `categoria: "qualificados"`.
    Ofereça o próximo passo: rascunhos de abordagem (skill **abordagem**) ou a ficha de uma empresa
    (skill **relatorio-empresa**).
+10. **Planilha** das empresas salvas: skill **exportar**, com o mesmo `busca_id`. Todos os formatos pedidos numa
+    chamada; o arquivo vem pelo link.
 
 ## Local
 

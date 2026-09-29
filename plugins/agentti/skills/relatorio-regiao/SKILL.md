@@ -43,7 +43,11 @@ análise**, que é o que dá valor ao relatório:
 
 Cite no texto só números que vieram das ferramentas. Se voltar `avisos` (número citado que o relatório não
 mostra), corrija o texto e gere de novo. Entregue os links do Word e do PDF (valem 15 minutos) e diga em três
-linhas o que o relatório conclui.
+linhas o que o relatório conclui. Com `projeto_id`, diga também que o relatório fica no painel, em **Projetos →
+Relatórios**.
+
+Link vencido ou "me manda aquele relatório de novo": `listar_relatorios` com o projeto devolve links novos. Não
+gere outra vez.
 
 Se `gerar_relatorio` não existir no conector, use o gerador da skill **marca-agentti** (reserva).
 
