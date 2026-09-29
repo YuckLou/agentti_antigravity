@@ -1,0 +1,47 @@
+{
+  "titulo": "Mercado de oficinas mecânicas em Jundiaí (SP)",
+  "subtitulo": "Estudo de mercado B2B · base da Receita Federal · consulta de 28/09/2026",
+  "titulo_curto": "Oficinas mecânicas · Jundiaí (SP)",
+  "arquivo": "Agentti - Mercado - Oficinas mecânicas - Jundiaí-SP - 2026-09-28",
+  "data": "28/09/2026",
+  "destaques": [
+    {"valor": "767", "rotulo": "oficinas mecânicas ativas"},
+    {"valor": "108", "rotulo": "na faixa A (14,1%)"},
+    {"valor": "34", "rotulo": "EPP e Demais"},
+    {"valor": "44,9%", "rotulo": "com celular na Receita"}
+  ],
+  "secoes": [
+    {"titulo": "Resumo", "blocos": [
+      {"texto": "Jundiaí tem **767 oficinas mecânicas ativas**, quase todas independentes (só 5 filiais). **74,3% são empresário individual**, grupo que inclui o MEI."},
+      {"texto": "**Recomendação:** começar pelas **23 EPP e Demais da faixa A**, para visita; depois as 108 da faixa A, com qualificação dos contatos."}
+    ]},
+    {"titulo": "Método", "blocos": [
+      {"tabela": {"colunas": ["Item", "Como foi feito"], "linhas": [
+        ["Ramo", "Manutenção e reparação mecânica de veículos (CNAE 4520-0/01), atividade principal"],
+        ["Local", "Município de Jundiaí (SP), sem raio"],
+        ["Base", "Contagem completa dos estabelecimentos ativos na base da Receita Federal"]
+      ]}}
+    ]},
+    {"titulo": "Porte", "blocos": [
+      {"grafico": {"titulo": "Oficinas por porte", "rotulos": ["Empresário individual (inclui MEI)", "ME", "EPP", "Demais"],
+                   "valores": [570, 163, 27, 7], "total": 767, "rotulo_categoria": "Porte",
+                   "legenda": "Contagem completa da base da Receita Federal."}}
+    ]},
+    {"titulo": "Pré-qualificação", "blocos": [
+      {"texto": "A faixa mede só o cadastro (porte, tempo ativa, canal, nome fantasia). **Não diz se a oficina compra.**"},
+      {"grafico": {"titulo": "Oficinas por faixa", "rotulos": ["Faixa A", "Faixa B", "Faixa C"], "valores": [108, 434, 225],
+                   "total": 767, "rotulo_categoria": "Faixa"}},
+      {"grafico_empilhado": {"titulo": "Faixa dentro de cada porte", "categorias": ["Empresário individual", "ME", "EPP", "Demais"],
+                             "series": {"A": [18, 67, 19, 4], "B": [356, 67, 8, 3], "C": [196, 29, 0, 0]},
+                             "rotulo_categoria": "Porte"}}
+    ]},
+    {"titulo": "Onde estão", "blocos": [
+      {"grafico": {"titulo": "Os 10 bairros com mais oficinas", "rotulos": ["Jardim do Lago", "Parque Residencial Jundiaí", "Santa Gertrudes", "Jardim Tarumã", "Centro", "Jardim Tamoio", "Ponte de São João", "Caxambu", "Jardim Pacaembu", "Jardim Novo Horizonte"],
+                   "valores": [22, 21, 16, 15, 15, 15, 14, 14, 13, 13], "total": 767, "rotulo_categoria": "Bairro"}}
+    ]},
+    {"titulo": "Recomendações", "blocos": [
+      {"lista": ["**Visita:** 23 oficinas EPP e Demais na faixa A.", "**Qualificação:** as 108 da faixa A.", "**WhatsApp:** 282 das faixas A e B com celular na Receita."]}
+    ]}
+  ],
+  "sobre_os_dados": "sem_contatos"
+}

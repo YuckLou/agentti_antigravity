@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "agentti": {
+      "serverUrl": "https://app.agentti.ia.br/mcp"
+    }
+  }
+}

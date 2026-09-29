@@ -1,0 +1,23 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "agentti",
+  "displayName": "Agentti",
+  "version": "0.3.0",
+  "description": "Agentti Lead Generator: prospecção B2B sobre a base oficial da Receita Federal, leitura de mercado, abordagem comercial e relatórios de empresa e de região em Word e PDF.",
+  "logo": "https://raw.githubusercontent.com/YuckLou/agentti_antigravity/main/plugins/agentti/skills/marca-agentti/assets/logo.png",
+  "author": {
+    "name": "Agentti",
+    "url": "https://agentti.ia.br"
+  },
+  "homepage": "https://agentti.ia.br",
+  "repository": "https://github.com/YuckLou/agentti_antigravity",
+  "keywords": [
+    "prospecção",
+    "b2b",
+    "leads",
+    "cnpj",
+    "receita federal",
+    "vendas",
+    "brasil"
+  ]
+}
