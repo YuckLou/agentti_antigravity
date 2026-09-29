@@ -12,7 +12,7 @@ description: Ficha completa de uma empresa brasileira pelo Agentti (cadastro da 
 2. Com o CNPJ, `buscar_empresas` com `cnpj` traz a faixa de pré-qualificação e as unidades ativas (se a
    ferramenta ainda não aceitar `cnpj`, procure pelo `nome` com `cidade` + `uf`). O bloco `rede` de `ver_lead`,
    quando vier, traz o mesmo.
-3. Empresa fora da conta: pergunte se a pessoa quer salvar num projeto (`salvar_no_projeto`, gasta 1 de cota) e
+3. Empresa fora da conta: pergunte se a pessoa quer salvar num projeto (`salvar_no_projeto`, gasta 1 de cota; prévia e `confirmar` depois do "sim") e
    qualificar (`qualificar`) para ter os contatos com prova. Sem isso, diga que a ficha é só do cadastro.
 4. Só com o nome, sem cidade: pergunte a cidade antes de buscar. Para achar outras unidades do mesmo grupo,
    `buscar_empresas` pelo `nome` fantasia na cidade.
