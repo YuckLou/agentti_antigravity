@@ -12,8 +12,7 @@ seu cliente consegue editar.
 
 - Uma conta no Agentti: [agentti.ia.br](https://agentti.ia.br).
 - Google Antigravity (app, IDE ou CLI `agy`).
-- Para relatórios em Word e PDF: Python 3 com `python-docx`, `matplotlib`, `reportlab` e `pymupdf`. Se faltar
-  algum, o agente pergunta antes de instalar.
+- Nada instalado no computador: desde a 0.4.0 o relatório em Word e PDF é gerado no servidor do Agentti.
 - Para qualificar leads (achar site, Instagram, WhatsApp e e-mail com prova): a extensão Agentti no Chrome.
 
 ## Instalar
