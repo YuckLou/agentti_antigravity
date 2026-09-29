@@ -5,6 +5,9 @@ description: Gerador dos documentos do Agentti em Word e PDF (cabeçalho com log
 
 # Documentos Agentti: use o gerador
 
+> **Reserva.** O caminho normal é a ferramenta `gerar_relatorio` do conector, que gera no servidor. Use este
+> gerador local só se o conector não tiver essa ferramenta.
+
 O visual é fixo no script `scripts/gerar_relatorio.py` desta skill. **Não escreva código de documento nem de
 gráfico**: monte o conteúdo em JSON e rode o script. Ele gera o `.docx` (principal, editável) e o `.pdf` do mesmo
 conteúdo, com gráficos, cores, logo e rodapé.

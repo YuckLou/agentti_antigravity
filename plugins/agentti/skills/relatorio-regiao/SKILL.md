@@ -23,32 +23,29 @@ description: Relatório de mercado B2B por região em Word e PDF, com os número
 
 Leia os números como manda a skill **mercado** ([como ler](../mercado/references/como-ler.md)).
 
-## Seções
+## Arquivo: `gerar_relatorio`
 
-Cada seção vira blocos do gerador (entre parênteses):
+Word e PDF saem **da ferramenta `gerar_relatorio`**, no servidor, mesmo que a pessoa tenha pedido só "um PDF".
+Não use a skill genérica de PDF ou Word, não escreva código e não digite números: o servidor calcula a
+estatística do recorte, os gráficos, as tabelas, o método e a contagem de cada recomendação. **Você escreve a
+análise**, que é o que dá valor ao relatório:
 
-1. **Resumo** (texto): o tamanho do mercado, onde está, o perfil dominante e a recomendação em uma frase. Os
-   quatro números principais vão em `destaques`.
-2. **Método** (tabela): ramos e códigos CNAE, local e raio, data da consulta, "contagem completa dos
-   estabelecimentos ativos na base da Receita Federal".
-3. **Tamanho** (texto): total, empresas distintas, densidade por km² (se houver raio).
-4. **Porte** (gráfico): explique o peso do MEI.
-5. **Pré-qualificação** (gráfico das faixas + gráfico empilhado porte × faixa): o que a faixa mede e o que não mede.
-6. **Maturidade** (gráfico): tempo ativa.
-7. **Canais de contato** (gráfico ou tabela): celular, só fixo, sem telefone, e-mail na Receita (ressalva do
-   contador).
-8. **Onde estão** (gráfico): os 10 bairros ou municípios com mais empresas, e a distância, se houver raio.
-9. **Recomendações** (lista): dois ou três recortes, cada um com contagem, motivo e próximo passo.
+- `titulo` e `titulo_curto` ("Confeitarias · Campinas (SP)");
+- `busca_id` da busca gravada no passo 6 (ou `recorte` com os mesmos filtros);
+- `resumo`: 1 a 3 parágrafos sobre o tamanho, onde está, o perfil e a recomendação, **para a oferta e o pedido
+  da pessoa**;
+- `analise`: um parágrafo por seção (`porte`, `faixas`, `maturidade`, `canais`, `onde`), o que o número quer
+  dizer para quem vende aquele produto (peso do MEI, faixa não é compra, ressalva do e-mail do contador...);
+- `recomendacoes`: dois ou três recortes, cada um com `titulo`, `recorte` (só o que muda: `porte`,
+  `faixa_minima`, `raio_km`...), `motivo` e `proximo_passo`;
+- `secoes_extras`: o que a pessoa pediu e o modelo não tem (sazonalidade, logística, concorrência...), só texto;
+- `projeto_id`: o relatório fica guardado no projeto.
 
-`sobre_os_dados: "sem_contatos"` (o relatório de região não traz contatos).
+Cite no texto só números que vieram das ferramentas. Se voltar `avisos` (número citado que o relatório não
+mostra), corrija o texto e gere de novo. Entregue os links do Word e do PDF (valem 15 minutos) e diga em três
+linhas o que o relatório conclui.
 
-## Arquivo
-
-Word e PDF, **sempre pelo gerador da skill marca-agentti** (se ela não carregar pelo nome, leia
-`../marca-agentti/SKILL.md`), mesmo que a pessoa tenha pedido só "um PDF". Não use a skill genérica de PDF ou
-Word e não escreva código de gráfico. Nome: `Agentti - Mercado - <ramos resumidos> - <local> - <AAAA-MM-DD>`.
-
-Depois de gerar, diga em três linhas o que o relatório conclui e entregue os dois arquivos.
+Se `gerar_relatorio` não existir no conector, use o gerador da skill **marca-agentti** (reserva).
 
 ## Regras
 

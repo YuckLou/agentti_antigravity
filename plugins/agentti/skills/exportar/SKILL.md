@@ -10,7 +10,7 @@ description: Exporta os leads de um projeto do Agentti em CSV, JSON ou Excel, co
    em outro sistema). O **arquivo do link sai completo** (~45 colunas); `colunas` só muda o que volta na conversa
    (`"resumo"` por padrão). Para só olhar o link, `limite: 0`.
    Filtros quando a pessoa pedir: `categoria` (ex.: `qualificados`), `faixa_icp`, `com_whatsapp`, `cidade`,
-   `bairro`, ou `lead_ids` para uma lista escolhida.
+   `bairro`, `busca_id` (só o que veio de uma busca salva) ou `lead_ids` para uma lista escolhida.
 3. Entregue:
    - o **link de download**, dizendo que vale **15 minutos**;
    - o total de linhas e as colunas principais;
@@ -21,8 +21,9 @@ description: Exporta os leads de um projeto do Agentti em CSV, JSON ou Excel, co
 ## Regras
 
 - Só entram leads **salvos** no projeto. Se a pessoa pedir empresas de uma busca ou de um relatório que ainda não
-  foram salvas: veja o recorte em `listar_buscas`, refaça `buscar_empresas`, diga quantas vão ser salvas e quanto
-  de cota gasta (1 por empresa), e só depois do "sim" use `salvar_no_projeto` e exporte.
+  foram salvas: ache a busca em `listar_buscas` e chame `salvar_no_projeto` com o `busca_id` (sem `confirmar`).
+  Mostre quantas entram e a cota, espere o "sim", chame de novo com `confirmar: true` e exporte com o mesmo
+  `busca_id`. Três chamadas; nunca liste página por página para juntar CNPJs.
 - Exportar não gasta cota.
 - O arquivo tem dados de contato de empresas: lembre que é para uso comercial da própria pessoa, sem repasse de
   lista.

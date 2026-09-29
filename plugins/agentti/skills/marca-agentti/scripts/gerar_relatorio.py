@@ -103,6 +103,9 @@ def _pct(v, total):
 def grafico_barras(g, caminho):
     import matplotlib
     matplotlib.use("Agg")
+    # Arial; no Linux, a Liberation Sans (mesmas medidas). Sem as duas, a DejaVu do matplotlib.
+    matplotlib.rcParams["font.family"] = "sans-serif"
+    matplotlib.rcParams["font.sans-serif"] = ["Arial", "Liberation Sans", "DejaVu Sans"]
     import matplotlib.pyplot as plt
     rot, val = list(g["rotulos"]), list(g["valores"])
     total = g.get("total") or sum(val)
@@ -127,6 +130,9 @@ def grafico_barras(g, caminho):
 def grafico_empilhado(g, caminho):
     import matplotlib
     matplotlib.use("Agg")
+    # Arial; no Linux, a Liberation Sans (mesmas medidas). Sem as duas, a DejaVu do matplotlib.
+    matplotlib.rcParams["font.family"] = "sans-serif"
+    matplotlib.rcParams["font.sans-serif"] = ["Arial", "Liberation Sans", "DejaVu Sans"]
     import matplotlib.pyplot as plt
     cats, series = list(g["categorias"]), g["series"]
     fig, ax = plt.subplots(figsize=(7.2, 0.5 * len(cats) + 0.9), dpi=160)

@@ -35,14 +35,11 @@ description: Ficha completa de uma empresa brasileira pelo Agentti (cadastro da 
 ## Formato
 
 - **Na conversa:** texto com as seções acima, sem a 10.
-- **Como arquivo** (quando a pessoa pedir Word, PDF, "arquivo" ou "para imprimir"): Word e PDF **pelo gerador da
-  skill marca-agentti** (se ela não carregar pelo nome, leia `../marca-agentti/SKILL.md`), mesmo que a pessoa
-  tenha pedido só "um PDF". Não use a skill genérica de PDF ou Word. No JSON:
-  - cadastro e contatos em `tabela` (contatos com as colunas Canal, Contato, Selo, Origem);
-  - resumo, rede, abordagem e riscos em `texto` ou `lista`;
-  - porte, faixa e ICP em `destaques`;
-  - `sobre_os_dados: "padrao"`, ou `"sem_contatos"` se a empresa não foi qualificada;
-  - `arquivo`: `Agentti - Ficha - <nome fantasia> - <AAAA-MM-DD>`.
+- **Como arquivo** (quando a pessoa pedir Word, PDF, "arquivo" ou "para imprimir"): `gerar_relatorio` com
+  `tipo: "empresa"`, `cnpj`, `titulo` (o nome fantasia), `resumo` e `analise` com `rede`, `abordagem` e
+  `riscos` (um por linha). Cadastro, sócios, contatos com prova, rede e endereço saem do servidor; não digite
+  esses dados. `projeto_id` guarda a ficha no projeto. Entregue os links (15 minutos). Não use a skill genérica
+  de PDF ou Word. Se `gerar_relatorio` não existir no conector, use o gerador da skill **marca-agentti**.
 
 ## Regras
 
