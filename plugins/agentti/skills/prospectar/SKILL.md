@@ -64,6 +64,9 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
 - Bairro, endereço ou CEP: `perto_de` + `raio_km`. O raio padrão é 3 km; em bairro denso, 1 a 2 km bastam.
   A busca atravessa bairros e municípios vizinhos.
 - Cidade inteira: `cidade` + `uf`. Em cidade pequena, prefira a cidade ao raio.
+- **"X e região", "arredores", "cidades vizinhas", "grande X": não chute raio.** Chame `regiao` (`tipo:
+  "vizinhos"` = a cidade e as que fazem divisa; `"metropolitana"` = a região metropolitana oficial), mostre a
+  lista de municípios à pessoa e use `cidade` + `uf` + `regiao` nas buscas, nas estatísticas e em `salvar_busca`.
 - Mais de um local: uma chamada por local.
 
 ## Regras
