@@ -12,7 +12,9 @@ description: Leitura de mercado B2B com o Agentti (contagem completa da base da 
    gasta cota.
 3. Responda em três blocos, curtos:
    - **Tamanho:** total de estabelecimentos, empresas distintas (matriz e filiais contam uma vez) e, com raio,
-     a densidade por km².
+     a densidade por km². Com cidade ou região, `contexto` traz a população (IBGE) e os **estabelecimentos por
+     10 mil habitantes**, por município: compare entre eles (onde o ramo é mais concentrado, onde há menos oferta)
+     e diga o ano do dado. População e PIB per capita descrevem o lugar; **não dizem se a empresa compra**.
    - **Como se divide:** porte, faixa A/B/C, tempo ativa, canal de contato. Uma tabela pequena com números e
      percentuais; nada de repetir o JSON.
    - **Recortes sugeridos:** dois ou três, cada um com a contagem e o motivo. Exemplo: "EPP e Demais, faixa A,

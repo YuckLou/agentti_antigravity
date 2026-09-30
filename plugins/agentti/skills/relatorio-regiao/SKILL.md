@@ -34,7 +34,7 @@ análise**, que é o que dá valor ao relatório:
 - `busca_id` da busca gravada no passo 6 (ou `recorte` com os mesmos filtros);
 - `resumo`: 1 a 3 parágrafos sobre o tamanho, onde está, o perfil e a recomendação, **para a oferta e o pedido
   da pessoa**;
-- `analise`: um parágrafo por seção (`porte`, `faixas`, `maturidade`, `canais`, `onde`), o que o número quer
+- `analise`: um parágrafo por seção (`contexto`, `porte`, `faixas`, `maturidade`, `canais`, `onde`), o que o número quer
   dizer para quem vende aquele produto (peso do MEI, faixa não é compra, ressalva do e-mail do contador...);
 - `recomendacoes`: dois ou três recortes, cada um com `titulo`, `recorte` (só o que muda: `porte`,
   `faixa_minima`, `raio_km`...), `motivo` e `proximo_passo`;
