@@ -46,13 +46,13 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
    - Algumas escolhidas na lista: `cnpjs`.
    - "Salve todas" ou "as N melhores": `busca_id` da busca gravada no passo 6 (e `limite`, se for "as N").
      **Nunca pagine `buscar_empresas` para juntar CNPJs.**
-   Nas duas formas, a primeira chamada não salva: devolve quantas entram e a cota. Mostre isso, espere o "sim" e
-   chame de novo com `confirmar: true`.
+   Nas duas formas, a primeira chamada não salva: devolve quantas entram, a cota e um `previa_id`. Mostre isso,
+   espere o "sim" e chame de novo com os mesmos parâmetros, `confirmar: true` e o `previa_id`.
    Não salve por conta própria.
 8. **Qualifique.** `qualificar` busca site, Instagram, WhatsApp, telefone e e-mail na web, com prova. Explique
    antes: roda na extensão Agentti do Chrome da pessoa, uns 20 a 30 segundos por empresa. A primeira chamada só
-   devolve a prévia (buscas, tempo estimado, cota restante): mostre, espere o "sim" e chame de novo com
-   `confirmar: true`. Se `extensao_conectada` vier falso, avise que a fila só começa quando ela entrar na extensão.
+   devolve a prévia (buscas, tempo estimado, cota restante) e um `previa_id`: mostre, espere o "sim" e chame de
+   novo com `confirmar: true` e o `previa_id`. Se `extensao_conectada` vier falso, avise que a fila só começa quando ela entrar na extensão.
 9. **Acompanhe e entregue.** `acompanhar_fila`; quando terminar, `listar_leads` com `categoria: "qualificados"`.
    Ofereça o próximo passo: rascunhos de abordagem (skill **abordagem**) ou a ficha de uma empresa
    (skill **relatorio-empresa**).
@@ -76,7 +76,9 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
   Se a empresa compra ou não é julgamento seu sobre o ramo, e a qualificação traz as provas de contato.
 - **Custo sempre com o "sim" da pessoa.** Salvar gasta 1 de descoberta por empresa nova; qualificar gasta 1 por
   empresa buscada. Toda ferramenta que gasta cota responde primeiro com a prévia: mostre quantas e quanto de cota,
-  e só chame com `confirmar: true` depois do "sim" dela, **mesmo que o pedido já diga "salve" ou "qualifique"**.
+  e só chame com `confirmar: true` e o `previa_id` da prévia depois do "sim" dela, **mesmo que o pedido já diga
+  "salve" ou "qualifique"**. Sem o `previa_id`, o servidor só repete a prévia; ele vale 10 minutos e uma vez.
+  Uma prévia por pedido: não junte várias confirmações numa chamada só.
   Sem custo (todas já no projeto), a ferramenta faz direto.
 - **Nada é enviado.** O Agentti não manda mensagem para ninguém.
 - **Sócio pessoa física** aparece só pelo primeiro nome, e só quando ajuda a cumprimentar.

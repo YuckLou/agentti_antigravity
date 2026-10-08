@@ -26,7 +26,8 @@ description: Exporta os leads de um projeto do Agentti em CSV, JSON ou Excel, co
 
 - Só entram leads **salvos** no projeto. Se a pessoa pedir empresas de uma busca ou de um relatório que ainda não
   foram salvas: ache a busca em `listar_buscas` e chame `salvar_no_projeto` com o `busca_id` (sem `confirmar`).
-  Mostre quantas entram e a cota, espere o "sim", chame de novo com `confirmar: true` e exporte com o mesmo
+  Mostre quantas entram e a cota, espere o "sim", chame de novo com `confirmar: true` e o `previa_id` da prévia,
+  e exporte com o mesmo
   `busca_id`. Três chamadas; nunca liste página por página para juntar CNPJs.
 - Exportar não gasta cota.
 - O arquivo tem dados de contato de empresas: lembre que é para uso comercial da própria pessoa, sem repasse de

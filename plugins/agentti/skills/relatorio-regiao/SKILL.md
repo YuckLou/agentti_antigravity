@@ -48,7 +48,9 @@ linhas o que o relatório conclui. Com `projeto_id`, diga também que o relatór
 Link vencido ou "me manda aquele relatório de novo": `listar_relatorios` com o projeto devolve links novos. Não
 gere outra vez.
 
-Se `gerar_relatorio` não existir no conector, use o gerador da skill **marca-agentti** (reserva).
+Se `gerar_relatorio` não existir no conector: com a skill **marca-agentti** disponível, use o gerador dela
+(reserva); sem ela (no Assistente do painel), diga que o papel da pessoa não gera relatórios em arquivo, entregue a
+análise na conversa e sugira pedir a um operador ou administrador.
 
 ## Regras
 
