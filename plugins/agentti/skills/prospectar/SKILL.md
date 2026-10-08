@@ -6,7 +6,8 @@ description: Prospecção B2B no Brasil com o Agentti, sobre a base oficial da R
 # Prospectar com o Agentti
 
 As ferramentas são as do conector **Agentti** (`buscar_atividade`, `estatisticas_empresas`, `buscar_empresas`,
-`listar_projetos`, `criar_projeto`, `definir_oferta`, `salvar_busca`, `listar_buscas`, `salvar_no_projeto`,
+`listar_projetos`, `criar_projeto`, `definir_oferta`, `salvar_busca`, `listar_buscas`, `criar_geometria`,
+`listar_geometrias`, `salvar_no_projeto`,
 `qualificar`, `acompanhar_fila`, `listar_leads`, `ver_lead`). Se elas não aparecerem, diga à pessoa para conectar o
 Agentti (README do plugin) e pare.
 
@@ -40,7 +41,9 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
    `removidos` diz quantas filiais e quantas já salvas saíram.
 6. **Grave a busca no projeto** (grátis): `salvar_busca` com o recorte mostrado e um nome claro
    ("Confeitarias faixa A · até 2 km da Vila Mariana"). A pessoa abre a mesma lista na Consulta CNPJ do painel;
-   dê o link `abrir_no_painel`.
+   dê o link `abrir_no_painel`. Desenhe também a área no mapa do projeto (`criar_geometria`: `cidade` + `uf`,
+   com `regiao` se for "X e região", ou `perto_de` + `raio_km`) e dê o `link`, que abre o mapa já nela. Antes,
+   veja em `listar_geometrias` se a área já existe; não duplique.
 7. **Salve empresas só quando a pessoa escolher** (`salvar_no_projeto`, 1 de cota por empresa): ela aponta quais,
    ou pede detalhes, exportação, qualificação ou mensagem de empresas que ainda não estão no projeto.
    - Algumas escolhidas na lista: `cnpjs`.
