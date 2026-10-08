@@ -22,7 +22,7 @@ Use para explicar à pessoa de onde vem cada dado, por que algo não foi achado 
 6. **Selo:** **confirmado** = a página traz o endereço ou o telefone da Receita; **provável** = indícios fortes
    sem essa prova. O resto fica de fora.
 7. **Dossiê:** das páginas aceitas, guarda o que a empresa diz de si (bio, legendas com data, avaliações, texto do
-   site). Aparece em `ver_lead` → `o_que_a_empresa_diz`.
+   site e, a fundo, das páginas internas). Aparece em `ver_lead` → `o_que_a_empresa_diz`.
 
 ## Como uma pessoa faria
 
@@ -38,6 +38,8 @@ Use para explicar à pessoa de onde vem cada dado, por que algo não foi achado 
 - Empresa sem site e sem Instagram: o dossiê fica com o Maps e a Receita.
 - Rede com muitas unidades: o telefone pode ser de outra loja. Por isso o motor exige o bairro ou o endereço.
 - Dossiê é do dia da qualificação (`lido_em`). Para atualizar, qualifique de novo.
-- **Em construção (qualificação profunda):** visitar as páginas internas do site ("Quem somos", "Serviços",
-  "Cardápio"), o "Sobre" do Facebook e notícias, até responder as seis perguntas. Hoje o site é lido só na home.
+- **Qualificação a fundo** (`qualificar` com `profunda: true`): além da home, o Agentti abre até 4 páginas
+  internas do site aceito ("Quem somos", "Produtos/Serviços/Cardápio", "Unidades/Lojas", "Trabalhe conosco"),
+  clicando nos links da própria página e com tempo de leitura. ~1 min a mais por empresa com site.
+- **Em construção:** Instagram mais fundo (destaques), o "Sobre" do Facebook e notícias.
 - O Agentti **não envia** mensagens. Campanha automática pelo Instagram e WhatsApp está planejada, não pronta.

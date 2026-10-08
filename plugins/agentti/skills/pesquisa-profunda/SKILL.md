@@ -18,9 +18,11 @@ clientes dela dizem nas páginas que a qualificação visitou. Como o motor trab
    - `maps`: nota, nº de avaliações, categoria, horário, serviços e avaliações recentes;
    - `site`: título, descrição, um trecho e as páginas internas que o site tem;
    - `cobertura`: para cada pergunta, a fonte que responde, ou vazio se ainda não há.
-3. **Sem dossiê ou com lacunas.** Sem `o_que_a_empresa_diz` (qualificação antiga ou nunca feita), ofereça
-   `qualificar` (prévia e "sim"; ~30 s por empresa, no Chrome do Agentti). Se a qualificação é recente e uma
-   pergunta continua vazia, diga que não foi achado. Não pesquise em outros sites para completar: o Agentti faz
+3. **Sem dossiê ou com lacunas.** Sem `o_que_a_empresa_diz` (qualificação antiga ou nunca feita), ou com
+   `cobertura` vazia em "quem é" ou "o que vende", ofereça `qualificar` com **`profunda: true`** (prévia e "sim";
+   ~30 s por empresa, mais ~1 min nas que têm site). A fundo, o Agentti entra no site como uma pessoa e lê "Quem
+   somos", "Produtos/Serviços/Cardápio" e "Unidades/Lojas"; aparecem em `site.paginas_lidas`. Se mesmo assim
+   uma pergunta continua vazia, diga que não foi achado. Não pesquise em outros sites para completar: o Agentti faz
    a busca na web com prova.
 4. **Responda pelas seis perguntas**, cada uma com a fonte e a data:
    - **Quem é:** nome fantasia, desde quando (abertura na Receita), o que diz de si (bio, descrição do site).
