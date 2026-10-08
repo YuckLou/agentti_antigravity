@@ -57,3 +57,5 @@ análise na conversa e sugira pedir a um operador ou administrador.
 - Número só da ferramenta, exato no relatório. Percentuais com uma casa.
 - Não transforme contagem em demanda nem capital em faturamento.
 - Não invente o mês da base: "base da Receita Federal, atualizada mensalmente".
+- O pedido da pessoa manda: foco (um ramo, um bairro, comparar cidades), tamanho e formato seguem o que ela
+  pediu. As seções são o roteiro quando ela não disse.

@@ -8,7 +8,7 @@ description: Prospecção B2B no Brasil com o Agentti, sobre a base oficial da R
 As ferramentas são as do conector **Agentti** (`buscar_atividade`, `estatisticas_empresas`, `buscar_empresas`,
 `listar_projetos`, `criar_projeto`, `definir_oferta`, `salvar_busca`, `listar_buscas`, `criar_geometria`,
 `listar_geometrias`, `salvar_no_projeto`,
-`qualificar`, `acompanhar_fila`, `listar_leads`, `ver_lead`). Se elas não aparecerem, diga à pessoa para conectar o
+`qualificar`, `descobrir_na_web`, `acompanhar_fila`, `listar_leads`, `ver_lead`). Se elas não aparecerem, diga à pessoa para conectar o
 Agentti (README do plugin) e pare.
 
 ## Projeto primeiro
@@ -52,8 +52,11 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
    Nas duas formas, a primeira chamada não salva: devolve quantas entram, a cota e um `previa_id`. Mostre isso,
    espere o "sim" e chame de novo com os mesmos parâmetros, `confirmar: true` e o `previa_id`.
    Não salve por conta própria.
-8. **Qualifique.** `qualificar` busca site, Instagram, WhatsApp, telefone e e-mail na web, com prova. Explique
-   antes: roda na extensão Agentti do Chrome da pessoa, uns 20 a 30 segundos por empresa. A primeira chamada só
+8. **Qualifique.** `qualificar` busca site, Instagram, WhatsApp, telefone e e-mail na web, com prova, e guarda o
+   que a empresa diz de si (dossiê, skill **pesquisa-profunda**). Explique antes: roda na extensão Agentti do
+   Chrome da pessoa, ~30 segundos por empresa, de preferência no **Chrome do Agentti** (atalho em Configurações →
+   Extensão Chrome), com a janela atrás das outras e **nunca minimizada**. Como o motor trabalha: skill
+   **pesquisa-profunda**, `references/motor.md`. A primeira chamada só
    devolve a prévia (buscas, tempo estimado, cota restante) e um `previa_id`: mostre, espere o "sim" e chame de
    novo com `confirmar: true` e o `previa_id`. Se `extensao_conectada` vier falso, avise que a fila só começa quando ela entrar na extensão.
 9. **Acompanhe e entregue.** `acompanhar_fila`; quando terminar, `listar_leads` com `categoria: "qualificados"`.
@@ -61,6 +64,16 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
    (skill **relatorio-empresa**).
 10. **Planilha** das empresas salvas: skill **exportar**, com o mesmo `busca_id`. Todos os formatos pedidos numa
     chamada; o arquivo vem pelo link.
+11. **Lista pequena ou sem contato?** Lugares novos ou com nome fantasia diferente podem não aparecer na Receita:
+    ofereça a skill **descobrir** (Google Maps pelo Chrome da pessoa) na mesma área.
+
+## O que a pessoa espera
+
+- **Profundidade, não só contato.** Quem prospecta quer saber quem é a empresa, se está ativa e como abordá-la.
+  Depois de qualificar, use o dossiê (`ver_lead` → `o_que_a_empresa_diz`) para dizer isso com fonte.
+- **Relatórios e campanhas do jeito que ela pedir.** Formato (conversa, Word, PDF, planilha), foco, canal, tom e
+  quantas empresas seguem o pedido dela. Use as skills **relatorio-empresa**, **relatorio-regiao**, **mercado** e
+  **abordagem**; não imponha um modelo quando ela já disse o que quer.
 
 ## Local
 
