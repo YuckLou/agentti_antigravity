@@ -66,7 +66,7 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
 10. **Planilha** das empresas salvas: skill **exportar**, com o mesmo `busca_id`. Todos os formatos pedidos numa
     chamada; o arquivo vem pelo link.
 11. **Lista pequena ou sem contato?** Lugares novos ou com nome fantasia diferente podem não aparecer na Receita:
-    ofereça a skill **descobrir** (Google Maps pelo Chrome da pessoa) na mesma área.
+    ofereça a skill **descobrir** (Apple Maps e Google Maps pelo Chrome da pessoa) na mesma área.
 
 ## O que a pessoa espera
 

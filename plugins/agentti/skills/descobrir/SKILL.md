@@ -1,9 +1,9 @@
 ---
 name: descobrir
-description: Descobre estabelecimentos no Google Maps com o Agentti, pelo Chrome da pessoa, para o que a base da Receita não mostra ou mostra sem contato (lugar novo, nome fantasia diferente, sem telefone). Use quando a pessoa pede para "achar no Maps", "descobrir lugares que não estão na lista", "ver o que tem na rua/bairro", ou quando a lista da Receita veio pequena ou sem contato.
+description: Descobre estabelecimentos no Apple Maps e no Google Maps com o Agentti, pelo Chrome da pessoa, para o que a base da Receita não mostra ou mostra sem contato (lugar novo, nome fantasia diferente, sem telefone). Use quando a pessoa pede para "achar no Maps", "descobrir lugares que não estão na lista", "ver o que tem na rua/bairro", ou quando a lista da Receita veio pequena ou sem contato.
 ---
 
-# Descobrir no Google Maps
+# Descobrir no Apple Maps e no Google Maps
 
 Ferramentas do conector **Agentti**: `listar_projetos`, `criar_projeto`, `listar_geometrias`, `criar_geometria`,
 `descobrir_na_web`, `acompanhar_fila`, `listar_leads`, `ver_lead`, `qualificar`.
@@ -12,18 +12,25 @@ Ferramentas do conector **Agentti**: `listar_projetos`, `criar_projeto`, `listar
 
 - A Receita é a base principal (skill **prospectar**). A descoberta completa: lugares que abriram há pouco, que
   usam nome fantasia diferente do cadastro, ou que estão na Receita sem telefone.
-- Não use para "todas as empresas da cidade": o Maps mostra ~120 lugares por busca e a descoberta anda no ritmo de
-  uma pessoa. Prefira um bairro, um raio pequeno ou uma área já desenhada no projeto.
+- Não use para "todas as empresas da cidade": cada busca mostra poucas dezenas de lugares e a descoberta anda no
+  ritmo de uma pessoa. Prefira um bairro, um raio pequeno ou uma área já desenhada no projeto.
 
 ## Como o Agentti faz (explique à pessoa na primeira vez)
 
 - Roda **no Chrome da pessoa**, pela extensão Agentti, de preferência no **Chrome do Agentti** (atalho em
   Configurações → Extensão Chrome). A janela fica **atrás das outras, nunca minimizada**: minimizada, a página
   para de desenhar e a lista do Maps não carrega. A pessoa pode usar o computador normalmente.
-- A área vira buscas por bairro ("cafeteria em Cambuí, Campinas - SP"). Em cada uma, a extensão rola a lista até
-  o fim e abre a ficha de cada lugar **novo**, clicando como uma pessoa, com pausas (~10 s por empresa, mais
-  pausas longas de tempos em tempos). Não é lento por defeito: é para o Google não tomar por robô.
-- Ficam de fora sem abrir: anúncios, lugares fora da área e os que o projeto já tem.
+- **Primeiro o Apple Maps:** buscas em pontos da área ("Cafeteria (Apple Maps, 12 pontos)"). A lista já traz
+  endereço e ponto de cada lugar; o card (~6 s) só abre para quem ficou sem telefone. Rápido e não gasta o teto
+  diário do Google.
+- **Depois o Google Maps**, se o limite não encheu: buscas por bairro ("cafeteria em Cambuí, Campinas - SP"). Em
+  cada uma, a extensão rola a lista até o fim e abre a ficha de cada lugar **novo**, clicando como uma pessoa,
+  com pausas (~10 s por empresa, mais pausas longas de tempos em tempos). Não é lento por defeito: é para o
+  Google não tomar por robô.
+- Ficam de fora sem abrir: anúncios, lugares fora da área, fechados de vez e os que o projeto já tem (inclusive
+  o mesmo lugar achado pela outra fonte).
+- As buscas de mapa trazem vizinhos de ramo (uma busca de "padaria" pode trazer sorveteria): olhe a categoria
+  antes de qualificar tudo.
 - Cada lugar é casado com a Receita **pelo endereço** (rua e número no município). Quando casa, vem o CNPJ;
   quando não, o lead entra sem CNPJ, nunca com o CNPJ de outra empresa.
 
