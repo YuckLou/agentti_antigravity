@@ -24,6 +24,9 @@ description: Leitura de mercado B2B com o Agentti (contagem completa da base da 
    projeto desta oferta e região (`listar_projetos`), ofereça gravar o recorte escolhido com `salvar_busca`
    (grátis), para ele aparecer no painel, e desenhar a área no mapa do projeto com `criar_geometria` (dê o
    `link`, que abre o mapa na área).
+5. Se a pessoa quer **ver** onde as empresas estão ("me mostra no mapa", "onde se concentram"), `gerar_imagem_mapa`
+   com o mesmo recorte (`calor` para concentração, `pontos` para poucas empresas) e entregue o `link`. Precisa do
+   painel aberto no navegador dela; com `precisa_painel`, mostre o link e tente de novo quando ela avisar.
 
 Detalhes de cada campo e das limitações: [references/como-ler.md](references/como-ler.md).
 

@@ -23,6 +23,18 @@ description: Relatório de mercado B2B por região em Word e PDF, com os número
 
 Leia os números como manda a skill **mercado** ([como ler](../mercado/references/como-ler.md)).
 
+## Mapa: `gerar_imagem_mapa`
+
+Um relatório de região tem um mapa. Antes do `gerar_relatorio`, chame `gerar_imagem_mapa` com o mesmo recorte
+(`busca_id`, ou ramos e local) e `projeto_id`: `tipo: "pontos"` (cor pela faixa) até umas 1.500 empresas,
+`tipo: "calor"` acima disso ou quando a pergunta é "onde se concentram". Confira a miniatura (o contorno é a
+região pedida?) e passe o `imagem_id` em `gerar_relatorio(imagens=[...])`; até dois mapas (ex.: pontos e calor).
+
+Quem desenha é o painel do Agentti aberto no navegador da pessoa. Se voltar `precisa_painel`, mostre o link,
+peça para ela abrir o painel e deixar a aba visível, e tente de novo quando ela avisar. Se ela preferir sem
+mapa, siga sem. A pessoa também pode mandar o mapa que está vendo (botão "Enviar ao assistente" na prancha do
+mapa): `listar_imagens` mostra essas imagens.
+
 ## Arquivo: `gerar_relatorio`
 
 Word e PDF saem **da ferramenta `gerar_relatorio`**, no servidor, mesmo que a pessoa tenha pedido só "um PDF".
@@ -39,7 +51,8 @@ análise**, que é o que dá valor ao relatório:
 - `recomendacoes`: dois ou três recortes, cada um com `titulo`, `recorte` (só o que muda: `porte`,
   `faixa_minima`, `raio_km`...), `motivo` e `proximo_passo`;
 - `secoes_extras`: o que a pessoa pediu e o modelo não tem (sazonalidade, logística, concorrência...), só texto;
-- `projeto_id`: o relatório fica guardado no projeto.
+- `projeto_id`: o relatório fica guardado no projeto;
+- `imagens`: os `imagem_id` do mapa (seção "No mapa", logo depois do resumo).
 
 Cite no texto só números que vieram das ferramentas. Se voltar `avisos` (número citado que o relatório não
 mostra), corrija o texto e gere de novo. Entregue os links do Word e do PDF (valem 15 minutos) e diga em três
