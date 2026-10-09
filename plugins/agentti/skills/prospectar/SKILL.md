@@ -59,7 +59,8 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
    **pesquisa-profunda**, `references/motor.md`. A primeira chamada só
    devolve a prévia (buscas, tempo estimado, cota restante) e um `previa_id`: mostre, espere o "sim" e chame de
    novo com `confirmar: true` e o `previa_id`. Se `extensao_conectada` vier falso, avise que a fila só começa quando ela entrar na extensão.
-9. **Acompanhe e entregue.** `acompanhar_fila`; quando terminar, `listar_leads` com `categoria: "qualificados"`.
+9. **Acompanhe e entregue.** `acompanhar_fila` (espera até 45 s sozinho; com `andando: true`, chame de novo sem
+   comentar no meio); quando terminar, `listar_leads` com `categoria: "qualificados"`.
    Ofereça o próximo passo: rascunhos de abordagem (skill **abordagem**) ou a ficha de uma empresa
    (skill **relatorio-empresa**).
 10. **Planilha** das empresas salvas: skill **exportar**, com o mesmo `busca_id`. Todos os formatos pedidos numa

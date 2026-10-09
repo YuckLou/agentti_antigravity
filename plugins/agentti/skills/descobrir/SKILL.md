@@ -37,7 +37,8 @@ Ferramentas do conector **Agentti**: `listar_projetos`, `criar_projeto`, `listar
    que a cota de descoberta só é gasta com as empresas **novas** no projeto. Espere o "sim".
 4. **Começar.** Chame de novo com os mesmos parâmetros, `confirmar: true` e o `previa_id`. Se
    `extensao_conectada` vier falso, avise que a busca começa quando a pessoa entrar na extensão.
-5. **Acompanhar.** `acompanhar_fila`. No fim, `listar_leads` com `categoria: "web"`: quantos entraram, quantos com
+5. **Acompanhar.** `acompanhar_fila`: ele mesmo espera até 45 s pelo fim. Voltou com `andando: true`? Chame de
+   novo, sem escrever nada à pessoa entre as chamadas (cada mensagem sua reenvia a conversa e gasta token). No fim, `listar_leads` com `categoria: "web"`: quantos entraram, quantos com
    CNPJ, quantos com telefone e site.
 6. **Próximo passo.** Ofereça qualificar os achados (skill **prospectar**, passo 8) para conferir Instagram,
    WhatsApp e e-mail com prova e montar o que a empresa diz de si (skill **pesquisa-profunda**).

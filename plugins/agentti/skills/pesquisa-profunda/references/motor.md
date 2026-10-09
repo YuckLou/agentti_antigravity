@@ -12,13 +12,15 @@ Use para explicar à pessoa de onde vem cada dado, por que algo não foi achado 
 
 ## A qualificação, passo a passo
 
-1. **Busca no Google** pelo nome e a cidade. Lê a resposta de IA do Google e os resultados.
-2. **Ficha do Google Maps:** telefone e site. Endereço igual ao da Receita = confirmado.
+1. **Busca de texto** pelo nome e a cidade. No Chrome do Agentti, no Yahoo Brasil ou no Ecosia (revezando), numa
+   janela própria; fora dele, no Google (lê também a resposta de IA do Google).
+2. **Ficha do Google Maps:** telefone e site. Endereço igual ao da Receita = confirmado. No Chrome do Agentti ela
+   abre junto com a busca de texto, e o site e o Instagram mais prováveis já abrem nas suas janelas.
 3. **Site:** visita até 2 candidatos. Prova é o CNPJ, o telefone ou o endereço da Receita na página. Site fora
    do ar é descartado.
 4. **Instagram:** visita o melhor perfil (e o segundo, se empatar). Prova é o endereço ou o site da empresa no
    perfil. Abre também a página do link da bio (Linktree e parecidas) atrás de WhatsApp.
-5. **Bing**, só se o Google e o Maps não trouxerem nem site nem telefone.
+5. **Bing**, só quando a busca foi no Google e nem ela nem o Maps trouxeram site ou telefone.
 6. **Selo:** **confirmado** = a página traz o endereço ou o telefone da Receita; **provável** = indícios fortes
    sem essa prova. O resto fica de fora.
 7. **Dossiê:** das páginas aceitas, guarda o que a empresa diz de si (bio, legendas com data, avaliações, texto do
@@ -31,7 +33,9 @@ Use para explicar à pessoa de onde vem cada dado, por que algo não foi achado 
 - Ritmo humano e pausas entre as buscas no Google, para respeitar os termos de uso e não ser bloqueado.
 - **Chrome do Agentti:** um Chrome separado só para a fila (atalho em Configurações → Extensão Chrome). A janela
   fica atrás das outras, **nunca minimizada**. Minimizada, a página para de desenhar e a fila trava.
-- ~30 s por empresa na qualificação; ~10 s por lugar na descoberta, mais pausas.
+- ~15 s por empresa na qualificação (medido em 09/10); ~10 s por lugar na descoberta, mais pausas.
+- **Teto diário por pessoa:** 300 buscas no Google e 150 perfis do Instagram (ajustável). No teto, a fila pausa
+  até o dia seguinte.
 
 ## Limites (diga quando importar)
 
@@ -41,5 +45,7 @@ Use para explicar à pessoa de onde vem cada dado, por que algo não foi achado 
 - **Qualificação a fundo** (`qualificar` com `profunda: true`): além da home, o Agentti abre até 4 páginas
   internas do site aceito ("Quem somos", "Produtos/Serviços/Cardápio", "Unidades/Lojas", "Trabalhe conosco"),
   clicando nos links da própria página e com tempo de leitura. ~1 min a mais por empresa com site.
-- **Em construção:** Instagram mais fundo (destaques), o "Sobre" do Facebook e notícias.
+  A fundo também lê: os **destaques** do Instagram, a **página do Facebook** aceita (apresentação, categoria,
+  recomendação, endereço; precisa do Facebook logado no Chrome do Agentti) e as **notícias** do Google com o nome
+  inteiro e a cidade, um sobrenome de sócio ou o site (`o_que_a_empresa_diz.noticias`).
 - O Agentti **não envia** mensagens. Campanha automática pelo Instagram e WhatsApp está planejada, não pronta.
