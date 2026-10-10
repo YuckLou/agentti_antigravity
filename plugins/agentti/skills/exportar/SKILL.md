@@ -5,7 +5,7 @@ description: Exporta os leads de um projeto do Agentti em CSV, JSON ou Excel, co
 
 # Exportar leads
 
-1. Ache o projeto com `listar_projetos` (pelo nome que a pessoa disse). Se houver mais de um parecido, pergunte.
+1. Ache o projeto com `listar` (projetos) (pelo nome que a pessoa disse). Se houver mais de um parecido, pergunte.
 2. **Uma chamada** de `exportar_leads` com o `formato` pedido (sem pedido: `xlsx` para quem vai abrir no Excel,
    `csv` para importar em outro sistema). Pediu mais de um ("planilha e CSV"): `formato: "xlsx"` e
    `tambem_em: ["csv"]`, que devolve um link por formato. O **arquivo do link sai completo** (~45 colunas).
@@ -25,7 +25,7 @@ description: Exporta os leads de um projeto do Agentti em CSV, JSON ou Excel, co
 ## Regras
 
 - Só entram leads **salvos** no projeto. Se a pessoa pedir empresas de uma busca ou de um relatório que ainda não
-  foram salvas: ache a busca em `listar_buscas` e chame `salvar_no_projeto` com o `busca_id` (sem `confirmar`).
+  foram salvas: ache a busca em `listar` (buscas) e chame `salvar_no_projeto` com o `busca_id` (sem `confirmar`).
   Mostre quantas entram e a cota, espere o "sim", chame de novo com `confirmar: true` e o `previa_id` da prévia,
   e exporte com o mesmo
   `busca_id`. Três chamadas; nunca liste página por página para juntar CNPJs.

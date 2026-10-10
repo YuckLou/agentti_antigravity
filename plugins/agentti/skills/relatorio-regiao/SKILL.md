@@ -16,7 +16,7 @@ description: Relatório de mercado B2B por região em Word e PDF, com os número
    - com o recorte recomendado (ex.: `porte: "EPP"`, `faixa_minima: "A"`), para dar a contagem exata.
 5. Opcional, se a pessoa quiser nomes: `buscar_empresas` com o recorte recomendado, `por_pagina: 10`. Entram só
    nome, bairro, porte e faixa. Sem contatos no relatório de região.
-6. **Deixe o estudo no sistema:** ache ou crie o projeto da oferta e região (`listar_projetos` / `criar_projeto`) e
+6. **Deixe o estudo no sistema:** ache ou crie o projeto da oferta e região (`listar` projetos / `projeto`) e
    grave cada recorte recomendado com `salvar_busca` (grátis). Cite no relatório, em "Recomendações", o nome da
    busca salva. Se depois a pessoa pedir os detalhes das empresas, salve as escolhidas no projeto
    (`salvar_no_projeto`, com a cota informada e o "sim" dela) e use a skill **exportar**.
@@ -33,7 +33,7 @@ região pedida?) e passe o `imagem_id` em `gerar_relatorio(imagens=[...])`; até
 Quem desenha é o painel do Agentti aberto no navegador da pessoa. Se voltar `precisa_painel`, mostre o link,
 peça para ela abrir o painel e deixar a aba visível, e tente de novo quando ela avisar. Se ela preferir sem
 mapa, siga sem. A pessoa também pode mandar o mapa que está vendo (botão "Enviar ao assistente" na prancha do
-mapa): `listar_imagens` mostra essas imagens.
+mapa): `listar` (imagens) mostra essas imagens.
 
 ## Arquivo: `gerar_relatorio`
 
@@ -61,7 +61,7 @@ Cite no texto só números que vieram das ferramentas. Se voltar `avisos` (núme
 mostra), corrija o texto e gere de novo. Entregue os links do Word e do PDF (valem 15 minutos) e diga em três
 linhas o que o relatório conclui. Com `projeto_id`, diga também que o relatório fica no painel, na página **Relatórios** (link `no_painel`).
 
-Link vencido ou "me manda aquele relatório de novo": `listar_relatorios` com o projeto devolve links novos. Não
+Link vencido ou "me manda aquele relatório de novo": `listar` (relatorios) com o projeto devolve links novos. Não
 gere outra vez.
 
 Se `gerar_relatorio` não existir no conector: com a skill **marca-agentti** disponível, use o gerador dela

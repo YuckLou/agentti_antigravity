@@ -21,7 +21,7 @@ description: Leitura de mercado B2B com o Agentti (contagem completa da base da 
      até 2 km: 84 empresas, as mais estruturadas e perto". Para ter a contagem exata de um recorte, chame a
      estatística de novo com os filtros.
 4. Pergunte se a pessoa quer listar um dos recortes (skill **prospectar**, a partir do passo 5). Se houver
-   projeto desta oferta e região (`listar_projetos`), ofereça gravar o recorte escolhido com `salvar_busca`
+   projeto desta oferta e região (`listar` (projetos)), ofereça gravar o recorte escolhido com `salvar_busca`
    (grátis), para ele aparecer no painel, e desenhar a área no mapa do projeto com `criar_geometria` (dê o
    `link`, que abre o mapa na área).
 5. Se a pessoa quer **ver** onde as empresas estão ("me mostra no mapa", "onde se concentram"), `gerar_imagem_mapa`

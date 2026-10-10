@@ -5,7 +5,7 @@ description: Descobre estabelecimentos no Apple Maps e no Google Maps com o Agen
 
 # Descobrir no Apple Maps e no Google Maps
 
-Ferramentas do conector **Agentti**: `listar_projetos`, `criar_projeto`, `listar_geometrias`, `criar_geometria`,
+Ferramentas do conector **Agentti**: `listar` (projetos, geometrias), `projeto`, `criar_geometria`,
 `descobrir_na_web`, `acompanhar_fila`, `listar_leads`, `ver_lead`, `qualificar`.
 
 ## Quando usar
@@ -37,7 +37,7 @@ Ferramentas do conector **Agentti**: `listar_projetos`, `criar_projeto`, `listar
 ## Passo a passo
 
 1. **Projeto e área.** Ache ou crie o projeto (como na skill **prospectar**). A área pode ser `camada_id` (já
-   desenhada: veja `listar_geometrias`), `cidade` + `uf`, ou `perto_de` + `raio_km` (0,5 a 2 km num bairro).
+   desenhada: veja `listar` (geometrias)), `cidade` + `uf`, ou `perto_de` + `raio_km` (0,5 a 2 km num bairro).
 2. **O que buscar.** Até 3 termos em palavras de cliente, como a pessoa digitaria no Maps ("cafeteria",
    "oficina mecânica"), não o nome oficial da atividade.
 3. **Prévia.** `descobrir_na_web` sem `confirmar`: mostre as buscas, o máximo de empresas, os minutos estimados e
