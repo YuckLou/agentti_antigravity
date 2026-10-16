@@ -78,7 +78,10 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
 
 ## Local
 
-- Bairro, endereço ou CEP: `perto_de` + `raio_km`. O raio padrão é 3 km; em bairro denso, 1 a 2 km bastam.
+- "No bairro X": `bairro` + `cidade` + `uf`: conta dentro do contorno do bairro (oficial do IBGE ou montado pelos
+  endereços da Receita). "Distrito de X" usa o distrito do IBGE. Se a resposta avisar que há um distrito maior com
+  o mesmo nome, diga à pessoa e ofereça.
+- Endereço ou CEP ("perto de"): `perto_de` + `raio_km`. O raio padrão é 3 km; em área densa, 1 a 2 km bastam.
   A busca atravessa bairros e municípios vizinhos.
 - Cidade inteira: `cidade` + `uf`. Em cidade pequena, prefira a cidade ao raio.
 - **"X e região", "arredores", "cidades vizinhas", "grande X": não chute raio.** Chame `regiao` (`tipo:

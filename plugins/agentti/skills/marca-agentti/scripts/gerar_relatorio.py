@@ -4,7 +4,8 @@
     python gerar_relatorio.py conteudo.json [--saida PASTA] [--previa]
 
 O formato do JSON está em ../references/formato.md. O visual (cores, cabeçalho com logo, rodapé, tabelas,
-gráficos) é fixo aqui, para sair igual em qualquer lugar; o Claude só escreve o conteúdo.
+gráficos) é fixo aqui, para sair igual em qualquer lugar; o Claude só escreve o conteúdo. É a cópia do
+gerador do servidor (ferramenta `gerar_relatorio`), para quando o conector não tem a ferramenta.
 
 Saída: uma linha JSON com os caminhos gerados, ou a lista de erros do conteúdo (código 2) ou dos pacotes que
 faltam (código 3).
@@ -36,7 +37,25 @@ SOBRE = ("**Sobre os dados.** Os números vêm da contagem completa dos estabele
 SOBRE_CONTATOS = (" Contatos marcados como \"confirmado\" foram achados numa página que traz o endereço ou o "
                   "telefone da Receita; \"provável\" indica sinais sem essa prova.")
 
-BLOCOS = ("texto", "lista", "tabela", "grafico", "grafico_empilhado")
+# "imagem" ({arquivo, titulo, legenda}): PNG já pronto no disco, como o mapa do S31 (o servidor baixa e põe o caminho).
+# "par" ({graficos: [g1, g2]}): dois gráficos pequenos lado a lado (S42 F.2), sem a tabela repetida.
+BLOCOS = ("texto", "lista", "tabela", "grafico", "grafico_empilhado", "imagem", "par")
+# A página A4 tem ~24 cm úteis de altura; com título e legenda junto, a imagem fica em até 20 cm
+ALTURA_MAX_IMAGEM_CM = 20
+
+
+def _tamanho_docx(arquivo, largura):
+    """Largura da página, ou a altura máxima quando a imagem é alta (a prancha inteira das Estatísticas)."""
+    from docx.shared import Cm
+    try:
+        from PIL import Image as Pil
+        with Pil.open(arquivo) as f:
+            w, h = f.size
+    except Exception:
+        return {"width": largura}
+    if h and w and largura * h / w > Cm(ALTURA_MAX_IMAGEM_CM):
+        return {"height": Cm(ALTURA_MAX_IMAGEM_CM)}
+    return {"width": largura}
 
 
 # ── Validação ────────────────────────────────────────────────────────────────
@@ -84,8 +103,15 @@ def validar(c):
                 for nome, vals in series.items():
                     if len(vals) != len(cats) or any(not isinstance(x, (int, float)) for x in vals):
                         erros.append(f"{ob}: a série '{nome}' precisa de {len(cats)} números")
+            elif tipo == "par":
+                gs = v.get("graficos") if isinstance(v, dict) else None
+                if not gs or len(gs) != 2 or any(not g.get("rotulos") or len(g["rotulos"]) != len(g.get("valores") or [])
+                                                 for g in gs):
+                    erros.append(f"{ob}: 'par' precisa de 'graficos' com 2 gráficos (rotulos e valores)")
             elif tipo == "lista" and not isinstance(v, list):
                 erros.append(f"{ob}: 'lista' é uma lista de textos")
+            elif tipo == "imagem" and not (isinstance(v, dict) and v.get("arquivo") and os.path.exists(v["arquivo"])):
+                erros.append(f"{ob}: 'imagem' precisa de 'arquivo' (um PNG que exista)")
     return erros
 
 
@@ -100,30 +126,48 @@ def _pct(v, total):
     return f"{num_br(100.0 * v / total, 1)}%" if total else ""
 
 
-def grafico_barras(g, caminho):
+def _rotulo(texto, largura=34, linhas=2):
+    """Rótulo longo (nome de CNAE) em até 2 linhas, cortado com reticências: antes ele espremia as barras e o
+    número saía cortado na borda (S42 F.1)."""
+    import textwrap
+    partes = textwrap.wrap(str(texto), largura) or [""]
+    if len(partes) > linhas:
+        partes = partes[:linhas]
+        partes[-1] = partes[-1][: largura - 1].rstrip() + "…"
+    return "\n".join(partes)
+
+
+def grafico_barras(g, caminho, largura_pol=7.2):
     import matplotlib
     matplotlib.use("Agg")
     # Arial; no Linux, a Liberation Sans (mesmas medidas). Sem as duas, a DejaVu do matplotlib.
     matplotlib.rcParams["font.family"] = "sans-serif"
     matplotlib.rcParams["font.sans-serif"] = ["Arial", "Liberation Sans", "DejaVu Sans"]
     import matplotlib.pyplot as plt
-    rot, val = list(g["rotulos"]), list(g["valores"])
+    estreito = largura_pol < 5
+    rot = [_rotulo(r, 20 if estreito else 34) for r in g["rotulos"]]
+    val = list(g["valores"])
     total = g.get("total") or sum(val)
-    fig, ax = plt.subplots(figsize=(7.2, 0.42 * len(rot) + 0.6), dpi=160)
+    duas = sum(1 for r in rot if "\n" in r)
+    fig, ax = plt.subplots(figsize=(largura_pol, 0.34 * len(rot) + 0.16 * duas + 0.35), dpi=170)
     y = range(len(rot))[::-1]
     ax.barh(list(y), val, color="#" + LARANJA, height=0.62)
-    ax.set_yticks(list(y), rot, fontsize=9, color="#" + TEXTO)
+    ax.set_yticks(list(y), rot, fontsize=8.5, color="#" + TEXTO, linespacing=0.95)
     topo = max(val) if val else 1
+    casas = g.get("casas", 0)
     for yi, v in zip(y, val):
-        ax.text(v + topo * 0.01, yi, f"{num_br(v)}  ({_pct(v, total)})", va="center", fontsize=8.5, color="#" + SECUNDARIO)
-    ax.set_xlim(0, topo * 1.22)
+        txt = num_br(v, casas) if g.get("sem_pct") else f"{num_br(v, casas)}  ({_pct(v, total)})"
+        ax.text(v + topo * 0.015, yi, txt, va="center", fontsize=8, color="#" + SECUNDARIO, clip_on=False)
+    ax.set_xlim(0, topo * 1.05)
     ax.xaxis.set_visible(False)
     for lado in ("top", "right", "bottom"):
         ax.spines[lado].set_visible(False)
     ax.spines["left"].set_color("#" + LINHA)
     ax.tick_params(axis="y", length=0)
-    fig.tight_layout()
-    fig.savefig(caminho, facecolor="white")
+    if estreito and g.get("titulo"):
+        ax.set_title(g["titulo"], fontsize=9, color="#" + TEXTO, fontweight="bold", loc="left")
+    # bbox "tight" põe na imagem o número à direita da barra, que fica fora dos eixos
+    fig.savefig(caminho, facecolor="white", bbox_inches="tight", pad_inches=0.06)
     plt.close(fig)
 
 
@@ -135,7 +179,7 @@ def grafico_empilhado(g, caminho):
     matplotlib.rcParams["font.sans-serif"] = ["Arial", "Liberation Sans", "DejaVu Sans"]
     import matplotlib.pyplot as plt
     cats, series = list(g["categorias"]), g["series"]
-    fig, ax = plt.subplots(figsize=(7.2, 0.5 * len(cats) + 0.9), dpi=160)
+    fig, ax = plt.subplots(figsize=(7.2, 0.42 * len(cats) + 0.8), dpi=170)
     y = list(range(len(cats)))[::-1]
     base = [0.0] * len(cats)
     tot = [sum(vals[i] for vals in series.values()) for i in range(len(cats))]
@@ -158,9 +202,20 @@ def grafico_empilhado(g, caminho):
         ax.spines[lado].set_visible(False)
     ax.tick_params(axis="y", length=0)
     ax.legend(ncol=len(series), frameon=False, fontsize=8.5, loc="lower center", bbox_to_anchor=(0.5, 1.0))
-    fig.tight_layout()
-    fig.savefig(caminho, facecolor="white")
+    fig.savefig(caminho, facecolor="white", bbox_inches="tight", pad_inches=0.06)
     plt.close(fig)
+
+
+def _largura_do_grafico(arquivo, largura):
+    """Com bbox "tight" a imagem sai com a largura do conteúdo: gráfico curto não é esticado além do que tem
+    (a 170 dpi, 7,2 pol. = a largura útil da página)."""
+    try:
+        from PIL import Image as Pil
+        with Pil.open(arquivo) as f:
+            w = f.size[0]
+    except Exception:
+        return largura
+    return min(largura, largura * w / (7.2 * 170))
 
 
 def _numerico(v):
@@ -341,11 +396,26 @@ def gerar_docx(c, graficos, caminho):
                     p.paragraph_format.space_after = Pt(3)
             elif "tabela" in b:
                 tabela(b["tabela"])
+            elif "par" in b:
+                tb = doc.add_table(rows=1, cols=2)
+                tb.alignment = WD_TABLE_ALIGNMENT.CENTER
+                for j, arq in enumerate(graficos[id(b)]):
+                    cel = tb.rows[0].cells[j]
+                    cel.paragraphs[0].add_run().add_picture(arq, width=Cm(8.2))
+                doc.add_paragraph(style="Legenda Agentti")
+            elif "imagem" in b:
+                im = b["imagem"]
+                if im.get("titulo"):
+                    paragrafo(im["titulo"], "Texto Agentti").runs[0].bold = True
+                doc.add_picture(im["arquivo"], **_tamanho_docx(
+                    im["arquivo"], _largura_do_grafico(im["arquivo"], largura) if im.get("natural") else largura))
+                if im.get("legenda"):
+                    paragrafo(im["legenda"], "Legenda Agentti")
             else:
                 g = b.get("grafico") or b.get("grafico_empilhado")
                 if g.get("titulo"):
                     paragrafo(g["titulo"], "Texto Agentti").runs[0].bold = True
-                doc.add_picture(graficos[id(b)], width=largura)
+                doc.add_picture(graficos[id(b)], width=_largura_do_grafico(graficos[id(b)], largura))
                 if g.get("tabela", True):
                     tabela({**(tabela_do_grafico(g) if "grafico" in b else tabela_do_empilhado(g)),
                             "legenda": g.get("legenda")})
@@ -471,11 +541,37 @@ def gerar_pdf(c, graficos, caminho):
                 corpo += [Paragraph("• " + rico(i), E["item"]) for i in b["lista"]]
             elif "tabela" in b:
                 corpo += tabela(b["tabela"])
+            elif "par" in b:
+                metade = (largura - 0.6 * cm) / 2
+                fotos = []
+                for arq in graficos[id(b)]:
+                    f = Image(arq)
+                    f.drawHeight, f.drawWidth = metade * f.imageHeight / f.imageWidth, metade
+                    fotos.append(f)
+                tb = Table([fotos], colWidths=[largura / 2] * 2)
+                tb.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                                        ("RIGHTPADDING", (0, 0), (-1, -1), 0)]))
+                corpo += [tb, Spacer(1, 8)]
+            elif "imagem" in b:
+                im = b["imagem"]
+                foto = Image(im["arquivo"])
+                # Imagem alta (a prancha inteira das Estatísticas, S38) cabe na página pela altura
+                # `natural`: o mapa do servidor (S42 F.3) já vem na largura certa; não é esticado
+                larg = _largura_do_grafico(im["arquivo"], largura) if im.get("natural") else largura
+                alt = larg * foto.imageHeight / foto.imageWidth
+                escala = min(1.0, ALTURA_MAX_IMAGEM_CM * cm / alt)
+                foto.drawHeight, foto.drawWidth = alt * escala, larg * escala
+                pedaco = [Paragraph("<b>" + rico(im["titulo"]) + "</b>", E["texto"])] if im.get("titulo") else []
+                pedaco.append(foto)
+                if im.get("legenda"):
+                    pedaco.append(Paragraph(rico(im["legenda"]), E["legenda"]))
+                corpo.append(KeepTogether(pedaco))
             else:
                 g = b.get("grafico") or b.get("grafico_empilhado")
                 img = Image(graficos[id(b)])
-                img.drawHeight = largura * img.imageHeight / img.imageWidth
-                img.drawWidth = largura
+                larg = _largura_do_grafico(graficos[id(b)], largura)
+                img.drawHeight = larg * img.imageHeight / img.imageWidth
+                img.drawWidth = larg
                 pedaco = [Paragraph("<b>" + rico(g["titulo"]) + "</b>", E["texto"])] if g.get("titulo") else []
                 pedaco.append(img)
                 corpo.append(KeepTogether(pedaco))
@@ -487,7 +583,7 @@ def gerar_pdf(c, graficos, caminho):
         fluxo.append(KeepTogether([Paragraph(rico(titulo), E["secao"])] + corpo[:1]))
         fluxo += corpo[1:]
     if c.get("sobre_os_dados", "padrao") is not False:
-        fluxo += [Paragraph("Sobre os dados", E["secao"]), Paragraph(rico(texto_sobre(c)), E["texto"])]
+        fluxo.append(KeepTogether([Paragraph("Sobre os dados", E["secao"]), Paragraph(rico(texto_sobre(c)), E["texto"])]))
 
     curto = c.get("titulo_curto") or c["titulo"]
 
@@ -511,6 +607,37 @@ def gerar_pdf(c, graficos, caminho):
 
 
 # ── Principal ────────────────────────────────────────────────────────────────
+
+def nome_do_arquivo(c):
+    return re.sub(r'[<>:"/\\|?*]', "-", c.get("arquivo") or f"Agentti - {c['titulo']}").strip()
+
+
+def gerar_arquivos(c, pasta):
+    """Gera o .docx e o .pdf de um conteúdo já validado em `pasta`. Devolve (docx, pdf, número de gráficos)."""
+    c.setdefault("data", date.today().strftime("%d/%m/%Y"))
+    nome = nome_do_arquivo(c)
+    os.makedirs(pasta, exist_ok=True)
+    tmp = tempfile.mkdtemp(prefix="agentti_")
+    graficos = {}
+    for s in c["secoes"]:
+        for b in s.get("blocos") or []:
+            if "grafico" in b or "grafico_empilhado" in b:
+                p = os.path.join(tmp, f"g{len(graficos)}.png")
+                (grafico_barras if "grafico" in b else grafico_empilhado)(b.get("grafico") or b["grafico_empilhado"], p)
+                graficos[id(b)] = p
+            elif "par" in b:
+                ps = []
+                for g in b["par"]["graficos"]:
+                    p = os.path.join(tmp, f"g{len(graficos)}_{len(ps)}.png")
+                    grafico_barras(g, p, largura_pol=3.6)
+                    ps.append(p)
+                graficos[id(b)] = ps
+    docx_p = os.path.join(pasta, nome + ".docx")
+    pdf_p = os.path.join(pasta, nome + ".pdf")
+    gerar_docx(c, graficos, docx_p)
+    gerar_pdf(c, graficos, pdf_p)
+    return docx_p, pdf_p, len(graficos)
+
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -544,24 +671,9 @@ def main():
     if erros:
         print(json.dumps({"erro": "conteúdo inválido", "detalhes": erros}, ensure_ascii=False))
         sys.exit(2)
-    c.setdefault("data", date.today().strftime("%d/%m/%Y"))
-    nome = re.sub(r'[<>:"/\\|?*]', "-", c.get("arquivo") or f"Agentti - {c['titulo']}").strip()
-    os.makedirs(a.saida, exist_ok=True)
-
-    tmp = tempfile.mkdtemp(prefix="agentti_")
-    graficos = {}
-    for s in c["secoes"]:
-        for b in s.get("blocos") or []:
-            if "grafico" in b or "grafico_empilhado" in b:
-                p = os.path.join(tmp, f"g{len(graficos)}.png")
-                (grafico_barras if "grafico" in b else grafico_empilhado)(b.get("grafico") or b["grafico_empilhado"], p)
-                graficos[id(b)] = p
-
-    docx_p = os.path.join(a.saida, nome + ".docx")
-    pdf_p = os.path.join(a.saida, nome + ".pdf")
-    gerar_docx(c, graficos, docx_p)
-    gerar_pdf(c, graficos, pdf_p)
-    saida = {"docx": os.path.abspath(docx_p), "pdf": os.path.abspath(pdf_p), "graficos": len(graficos)}
+    docx_p, pdf_p, n_graficos = gerar_arquivos(c, a.saida)
+    nome = nome_do_arquivo(c)
+    saida = {"docx": os.path.abspath(docx_p), "pdf": os.path.abspath(pdf_p), "graficos": n_graficos}
     if a.previa:
         try:
             try:

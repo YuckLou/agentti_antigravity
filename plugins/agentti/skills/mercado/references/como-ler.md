@@ -2,6 +2,11 @@
 
 ## Campos
 
+A resposta vem **curta** por padrão: sem `porte_x_faixa`, `pontos_quartis`, `capital_social` e
+`com_nome_fantasia`, com os 8 ramos, 5 bairros e 6 municípios maiores, e `ibge` (população, estabelecimentos por 10
+mil habitantes e PIB per capita dos municípios). `detalhe: true` traz tudo, inclusive `contexto` com o IBGE completo
+(Pix, IRPF, empregos, salário, frota). Com `bairro`, `area` diz qual contorno foi usado.
+
 | Campo | O que é | Como usar |
 | :--- | :--- | :--- |
 | `total` | estabelecimentos ativos no recorte | o tamanho do mercado visível |

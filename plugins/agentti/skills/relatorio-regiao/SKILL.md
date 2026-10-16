@@ -5,10 +5,26 @@ description: Relatório de mercado B2B por região em Word e PDF, com os número
 
 # Relatório de região
 
+## Atalho: `estudo_de_mercado` (use primeiro)
+
+Para o pedido comum — estudo ou relatório da região, com ou sem a planilha das empresas A ou A/B — são três
+passos: `buscar_atividade` com todos os ramos (confirme a lista com a pessoa), `estudo_de_mercado` com ramos,
+local, `titulo` e, se pedirem planilha, `planilha_faixa`; mostre a prévia (números e cota) e, com o "sim", a
+mesma chamada com `confirmar` e `previa_id`. O servidor faz números, IBGE, relatório Word e PDF com dois mapas,
+a área no mapa do projeto e a planilha.
+
+Na chamada do "sim", **escreva a leitura** a partir dos `numeros` da prévia, pensando no produto: `resumo` (2 ou 3
+parágrafos) e `analise` (`perfil`, `contexto`, `onde`, um parágrafo cada). Sem eles, o servidor põe uma leitura
+fixa por regras, correta mas genérica.
+
+O passo a passo abaixo é para quando a pessoa pede algo que o atalho não faz (comparar partes da região,
+recomendações sob medida, o mapa com as ruas).
+
 ## Coletar os números
 
 1. Ramos → `buscar_atividade` com todos numa chamada (`textos: [...]`). Confirme a lista de ramos com a pessoa antes de seguir.
-2. Local → `perto_de` + `raio_km` ou `cidade` + `uf`.
+2. Local → `perto_de` + `raio_km`, `cidade` + `uf` (com `regiao` para "X e arredores"), ou `bairro` + `cidade` +
+   `uf` ("no bairro X": conta dentro do contorno do bairro, não num raio; "Distrito de X" usa o distrito do IBGE).
 3. `estatisticas_empresas` com ramos e local: é a base de todo o relatório.
 4. Se ajudar a decisão, até três chamadas a mais:
    - por ramo, quando um ramo domina o total;
@@ -23,17 +39,17 @@ description: Relatório de mercado B2B por região em Word e PDF, com os número
 
 Leia os números como manda a skill **mercado** ([como ler](../mercado/references/como-ler.md)).
 
-## Mapa: `gerar_imagem_mapa`
+## Mapa
 
-Um relatório de região tem um mapa. Antes do `gerar_relatorio`, chame `gerar_imagem_mapa` com o mesmo recorte
-(`busca_id`, ou ramos e local) e `projeto_id`: `tipo: "pontos"` (cor pela faixa) até umas 1.500 empresas,
-`tipo: "calor"` acima disso ou quando a pergunta é "onde se concentram". Confira a miniatura (o contorno é a
-região pedida?) e passe o `imagem_id` em `gerar_relatorio(imagens=[...])`; até dois mapas (ex.: pontos e calor).
+O relatório de mercado já sai com **dois mapas desenhados no servidor**: as empresas pela faixa sobre o contorno
+dos municípios e a concentração (raio e bairro aparecem tracejados). Não precisa chamar nada nem ter o painel
+aberto.
 
-Quem desenha é o painel do Agentti aberto no navegador da pessoa. Se voltar `precisa_painel`, mostre o link,
-peça para ela abrir o painel e deixar a aba visível, e tente de novo quando ela avisar. Se ela preferir sem
-mapa, siga sem. A pessoa também pode mandar o mapa que está vendo (botão "Enviar ao assistente" na prancha do
-mapa): `listar` (imagens) mostra essas imagens.
+Só quando a pessoa quer o mapa **com as ruas**, como ela vê na tela: `gerar_imagem_mapa` com o mesmo recorte e
+`projeto_id` (`pontos` ou `calor`), e o `imagem_id` em `gerar_relatorio(imagens=[...])`; nesse caso as imagens dela
+entram no lugar dos mapas do servidor. Quem desenha esse é o painel aberto no navegador da pessoa: com
+`precisa_painel`, mostre o link e tente de novo quando ela avisar. O mapa que ela mesma enviou ("Enviar ao
+assistente") aparece em `listar` (imagens). Na conversa, mapa vai como link, nunca como imagem `![]()`.
 
 ## Arquivo: `gerar_relatorio`
 
@@ -46,13 +62,14 @@ análise**, que é o que dá valor ao relatório:
 - `busca_id` da busca gravada no passo 6 (ou `recorte` com os mesmos filtros);
 - `resumo`: 1 a 3 parágrafos sobre o tamanho, onde está, o perfil e a recomendação, **para a oferta e o pedido
   da pessoa**;
-- `analise`: um parágrafo por seção (`contexto`, `porte`, `faixas`, `maturidade`, `canais`, `onde`), o que o número quer
-  dizer para quem vende aquele produto (peso do MEI, faixa não é compra, ressalva do e-mail do contador...);
+- `analise`: um parágrafo por seção (`mapa`, `contexto`, `perfil`, `onde`, `entorno`), o que o número quer dizer
+  para quem vende aquele produto (peso do MEI, faixa não é compra, ressalva do e-mail do contador...). `perfil` é a
+  seção que junta porte, faixa, tempo ativa e canal;
 - `recomendacoes`: dois ou três recortes, cada um com `titulo`, `recorte` (só o que muda: `porte`,
   `faixa_minima`, `raio_km`...), `motivo` e `proximo_passo`;
 - `secoes_extras`: o que a pessoa pediu e o modelo não tem (sazonalidade, logística, concorrência...), só texto;
 - `projeto_id`: o relatório fica guardado no projeto;
-- `imagens`: os `imagem_id` do mapa (seção "No mapa", logo depois do resumo).
+- `imagens`: só se a pessoa quer o mapa com as ruas (veja "Mapa"); sem elas, o servidor desenha os dois mapas.
 
 `gerar_relatorio` usa 1 da cota de relatórios: a primeira chamada devolve a prévia (`previa_id` e a cota que resta).
 Mostre, espere o "sim" e chame de novo com os mesmos campos, `confirmar: true` e o `previa_id`.
