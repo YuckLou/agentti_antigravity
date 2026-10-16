@@ -34,7 +34,9 @@ Tudo o que você fizer tem de aparecer no painel da pessoa, para ela não refaze
    um e deixe a pessoa escolher. Nunca pule este passo: é grátis e evita salvar gente errada.
 5. **Liste.** `buscar_empresas` com o recorte escolhido. Mostre uma tabela curta: nome, bairro, distância, porte,
    faixa e o motivo principal (a lista já vem só com isso). No máximo 25 linhas na conversa; o resto fica para as
-   próximas páginas. Telefone, e-mail e endereço da Receita só com `detalhe: true`, quando a pessoa pedir.
+   próximas páginas. Endereço e cadastro só com `detalhe: true`, quando a pessoa pedir. **Telefone e e-mail da
+   Receita só aparecem das empresas já salvas na conta**; das outras, `contato` diz se tem: para ver os números,
+   salve no projeto (cota, com o "sim").
    A lista já vem **uma linha por empresa** (filiais juntas) e numa **ordem estável** entre páginas: não confira
    duplicatas item por item. Se o projeto já tem empresas, use `fora_do_projeto` para listar só as novas;
    `removidos` diz quantas filiais e quantas já salvas saíram.
