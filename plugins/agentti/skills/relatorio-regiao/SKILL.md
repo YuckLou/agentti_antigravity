@@ -11,7 +11,9 @@ Para o pedido comum — estudo ou relatório da região, com ou sem a planilha d
 passos: `buscar_atividade` com todos os ramos (confirme a lista com a pessoa), `estudo_de_mercado` com ramos,
 local, `titulo` e, se pedirem planilha, `planilha_faixa`; mostre a prévia (números e cota) e, com o "sim", a
 mesma chamada com `confirmar` e `previa_id`. O servidor faz números, IBGE, relatório Word e PDF com dois mapas,
-a área no mapa do projeto e a planilha.
+a área no mapa do projeto e a planilha. Com o painel do Agentti aberto no navegador da pessoa, o relatório ganha
+também a página **Concentração em relevo** (o mapa em 3D); a prévia diz se vai ter (`vai_entregar`) e, sem o
+painel, traz `mapa_3d` com o motivo: avise e, se ela quiser o 3D, peça para abrir o painel antes do "sim".
 
 Na chamada do "sim", **escreva a leitura** a partir dos `numeros` da prévia, pensando no produto: `resumo` (2 ou 3
 parágrafos) e `analise` (`perfil`, `contexto`, `onde`, um parágrafo cada). Sem eles, o servidor põe uma leitura
@@ -50,7 +52,9 @@ aberto.
 
 Só quando a pessoa quer o mapa **com as ruas**, como ela vê na tela: `gerar_imagem_mapa` com o mesmo recorte e
 `projeto_id` (`pontos` ou `calor`), e o `imagem_id` em `gerar_relatorio(imagens=[...])`; nesse caso as imagens dela
-entram no lugar dos mapas do servidor. Quem desenha esse é o painel aberto no navegador da pessoa: com
+entram no lugar dos mapas do servidor. O mapa em 3D (`tipo: "relevo"`, precisa de cidade, região, bairro, raio
+ou área) vai também em `imagens`, mas entra numa página própria, "Concentração em relevo", sem tirar os mapas do
+servidor. Quem desenha essas imagens é o painel aberto no navegador da pessoa: com
 `precisa_painel`, mostre o link e tente de novo quando ela avisar. O mapa que ela mesma enviou ("Enviar ao
 assistente") aparece em `listar` (imagens). Na conversa, mapa vai como link, nunca como imagem `![]()`.
 
