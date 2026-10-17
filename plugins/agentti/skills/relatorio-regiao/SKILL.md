@@ -17,7 +17,10 @@ Na chamada do "sim", **escreva a leitura** a partir dos `numeros` da prévia, pe
 parágrafos) e `analise` (`perfil`, `contexto`, `onde`, um parágrafo cada). Sem eles, o servidor põe uma leitura
 fixa por regras, correta mas genérica.
 
-O passo a passo abaixo é para quando a pessoa pede algo que o atalho não faz (comparar partes da região,
+O atalho é dos planos Starter e Pro. No Grátis a ferramenta recusa: diga isso à pessoa e, se ela quiser, siga o
+passo a passo abaixo (o relatório gasta 1 da cota de relatórios).
+
+O passo a passo abaixo é também para quando a pessoa pede algo que o atalho não faz (comparar partes da região,
 recomendações sob medida, o mapa com as ruas).
 
 ## Coletar os números
